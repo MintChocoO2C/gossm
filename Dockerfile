@@ -5,7 +5,7 @@ RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificat
     && CGO_ENABLED=0 go build -ldflags='-w -s -extldflags "-static"' -a -o /build/gossm .
 
 FROM alpine 
-RUN apk update && apk add openssh
+RUN apk add --no-cache openssh
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /build/ /go/bin/
 ENTRYPOINT [ "/go/bin/gossm" ]
