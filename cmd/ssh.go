@@ -42,7 +42,7 @@ var (
 				if err != nil {
 					panicRed(err)
 				}
-				sshCommand = internal.GenerateSSHExecCommand("", identity, sshUser.Name, target.PublicDomain)
+				sshCommand = internal.GenerateSSHExecCommand("", identity, sshUser.Name, target.PrivateDomain)
 			} else {
 				seps := strings.Split(exec, " ")
 				lastArg := seps[len(seps)-1]

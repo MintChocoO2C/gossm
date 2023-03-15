@@ -65,13 +65,13 @@ type (
 // AskUser asks you which selects a user.
 func AskUser() (*User, error) {
 	prompt := &survey.Input{
-		Message: "Type your connect ssh user (default: root):",
+		Message: "Type your connect ssh user (default: ec2-user):",
 	}
 	var user string
 	survey.AskOne(prompt, &user)
 	user = strings.TrimSpace(user)
 	if user == "" {
-		user = "root"
+		user = "ec2-user"
 	}
 	return &User{Name: user}, nil
 }
@@ -221,7 +221,7 @@ func FindInstances(ctx context.Context, cfg aws.Config) (map[string]*Target, err
 							break
 						}
 					}
-					table[fmt.Sprintf("%s\t(%s)", name, *inst.InstanceId)] = &Target{
+					table[fmt.Sprintf("%s\t(%s)", name, *inst.PrivateIpAddress)] = &Target{
 						Name:          aws.ToString(inst.InstanceId),
 						PublicDomain:  aws.ToString(inst.PublicDnsName),
 						PrivateDomain: aws.ToString(inst.PrivateDnsName),
